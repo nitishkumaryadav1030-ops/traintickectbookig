@@ -1,0 +1,403 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Railway Ticket Booking</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      🚆 Railway Booking
+    </div>
+
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#booking">Book Ticket</a>
+      <a href="#trains">Trains</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+
+    <div class="hero-content">
+      <h1>Book Your Railway Ticket</h1>
+
+      <p>
+        Search trains, check availability and book your journey easily.
+      </p>
+
+      <button onclick="scrollToBooking()">
+        Book Ticket
+      </button>
+    </div>
+
+  </section>
+
+
+  <!-- Booking Section -->
+  <section class="booking-section" id="booking">
+
+    <div class="booking-box">
+
+      <h2>Search Train</h2>
+
+      <form id="bookingForm">
+
+        <div class="form-row">
+
+          <div class="form-group">
+            <label for="from">From Station</label>
+
+            <input type="text" id="from" placeholder="Enter source station" required>
+          </div>
+
+
+          <div class="swap">
+            ⇄
+          </div>
+
+
+          <div class="form-group">
+            <label for="to">To Station</label>
+
+            <input type="text" id="to" placeholder="Enter destination station" required>
+          </div>
+
+        </div>
+
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label for="date">
+              Journey Date
+            </label>
+
+            <input type="date" id="date" required>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="class">
+              Class
+            </label>
+
+            <select id="class">
+
+              <option value="Sleeper">
+                Sleeper (SL)
+              </option>
+
+              <option value="3A">
+                AC 3 Tier (3A)
+              </option>
+
+              <option value="2A">
+                AC 2 Tier (2A)
+              </option>
+
+              <option value="1A">
+                AC First Class (1A)
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="passengers">
+              Passengers
+            </label>
+
+            <select id="passengers">
+
+              <option value="1">1 Passenger</option>
+              <option value="2">2 Passengers</option>
+              <option value="3">3 Passengers</option>
+              <option value="4">4 Passengers</option>
+              <option value="5">5 Passengers</option>
+              <option value="6">6 Passengers</option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <button type="submit" class="search-btn">
+          🔍 Search Trains
+        </button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+
+  <!-- Train Results -->
+  <section class="trains-section" id="trains">
+
+    <h2>Available Trains</h2>
+
+    <div id="trainResults">
+
+      <p class="message">
+        Enter your journey details and click
+        "Search Trains".
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- Passenger Details -->
+  <section class="passenger-section" id="passengerSection" style="display:none;">
+
+    <div class="passenger-box">
+
+      <h2>Passenger Details</h2>
+
+      <form id="passengerForm">
+
+        <div class="form-group">
+
+          <label for="passengerName">
+            Passenger Name
+          </label>
+
+          <input type="text" id="passengerName" placeholder="Enter passenger name" required>
+
+        </div>
+
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label for="age">
+              Age
+            </label>
+
+            <input type="number" id="age" min="1" max="120" required>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="gender">
+              Gender
+            </label>
+
+            <select id="gender">
+
+              <option value="Male">
+                Male
+              </option>
+
+              <option value="Female">
+                Female
+              </option>
+
+              <option value="Other">
+                Other
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="berth">
+              Berth Preference
+            </label>
+
+            <select id="berth">
+
+              <option value="No Preference">
+                No Preference
+              </option>
+
+              <option value="Lower">
+                Lower
+              </option>
+
+              <option value="Middle">
+                Middle
+              </option>
+
+              <option value="Upper">
+                Upper
+              </option>
+
+              <option value="Side Lower">
+                Side Lower
+              </option>
+
+              <option value="Side Upper">
+                Side Upper
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <button type="submit" class="continue-btn">
+          Continue to Payment
+        </button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+
+  <!-- Payment Section -->
+  <section class="payment-section" id="paymentSection" style="display:none;">
+
+    <div class="payment-box">
+
+      <h2>Payment</h2>
+
+      <p>
+        Select Payment Method
+      </p>
+
+
+      <div class="payment-options">
+
+        <label>
+          <input type="radio" name="payment" value="UPI" checked>
+          UPI
+        </label>
+
+
+        <label>
+          <input type="radio" name="payment" value="Card">
+          Debit / Credit Card
+        </label>
+
+
+        <label>
+          <input type="radio" name="payment" value="Net Banking">
+          Net Banking
+        </label>
+
+      </div>
+
+
+      <button onclick="makePayment()" class="pay-btn">
+        💳 Make Payment
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- Confirmation -->
+  <section class="confirmation-section" id="confirmationSection" style="display:none;">
+
+    <div class="confirmation-box">
+
+      <h2>🎉 Booking Successful!</h2>
+
+      <p>
+        Your railway ticket has been booked successfully.
+      </p>
+
+
+      <div class="ticket">
+
+        <h3>Railway E-Ticket</h3>
+
+        <p>
+          <strong>PNR:</strong>
+          <span id="pnr"></span>
+        </p>
+
+        <p>
+          <strong>Passenger:</strong>
+          <span id="confirmName"></span>
+        </p>
+
+        <p>
+          <strong>Journey:</strong>
+          <span id="confirmJourney"></span>
+        </p>
+
+        <p>
+          <strong>Class:</strong>
+          <span id="confirmClass"></span>
+        </p>
+
+        <p>
+          <strong>Payment:</strong>
+          <span id="confirmPayment"></span>
+        </p>
+
+        <p>
+          <strong>Status:</strong>
+          <span class="confirmed">
+            CONFIRMED
+          </span>
+        </p>
+
+      </div>
+
+
+      <button onclick="window.print()" class="print-btn">
+        🖨 Print Ticket
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- Footer -->
+  <footer id="contact">
+
+    <p>
+      © 2026 Railway Ticket Booking Project
+    </p>
+
+    <p>
+      Created using HTML, CSS & JavaScript
+    </p>
+
+  </footer>
+
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
+```
